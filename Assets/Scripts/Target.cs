@@ -15,6 +15,7 @@ public class Target : MonoBehaviour, IPointerClickHandler
     private Rigidbody rb;
 
     public int point;
+    public int pointN;
     public ParticleSystem explosionParticle;
 
     void Start()
@@ -43,11 +44,20 @@ public class Target : MonoBehaviour, IPointerClickHandler
     // NOTE: OnPointerClick is part of IPointerClickHandler interface
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("CLICKED");
 
+        var gm = FindAnyObjectByType<GameManager>();
+        gm.UpdateScore(point);
+        Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-
+        if (other.CompareTag("Sensor"))
+        {
+            var g0 = FindAnyObjectByType<GameManager>();
+            g0.UpdateScore(pointN);
+            Destroy(this.gameObject);
+        }
     }
 }
