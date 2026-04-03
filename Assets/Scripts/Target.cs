@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class Target : MonoBehaviour, IPointerClickHandler
 {
     private float minSpeed = 12;
-    private float maxSpeed = 16;
+    private float maxSpeed = 20;
     private float maxTorque = 10;
     private float xRange = 4;
     private float ySpawnPos = -6;
@@ -20,6 +20,9 @@ public class Target : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.AddForce(RandomForce(), ForceMode.Impulse);
+        rb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque());
+        transform.position = RandomSpawnPos();
     }
 
     Vector3 RandomForce()
